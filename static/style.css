@@ -1,12 +1,23 @@
-body            { font-family: sans-serif; background: white; }
-a, h1, h2       { 
+body { 
+    font-family: sans-serif; 
+    background: white;
+}
+
+a, h1, h2 { 
 	color: #377ba8;
 	text-align: none;
 }
-h1, h2          { font-family: 'Georgia', serif; margin: 0; }
-h2              { font-size: 1.2em; }
 
-.page           { 
+h1, h2 { f
+    font-family: 'Georgia', serif; 
+    margin: 0; 
+}
+
+h2 { 
+    font-size: 1.2em; 
+}
+
+.navbar { 
 	background: #eee;
 	border-bottom: 5px solid #377ba8;
 	padding: 0.8em; 
@@ -16,4 +27,13 @@ h2              { font-size: 1.2em; }
 
 .nav {
 	text-align: center;
+}
+
+.main {
+    padding: 25px; 
+}
+
+.tag {
+    background: #eee;
+    border: 5px solid #377ba8;
 }

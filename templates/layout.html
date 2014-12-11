@@ -1,7 +1,7 @@
 <!doctype html>
 <title>Knodes</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
+<div class=navbar>
   <h1>Knodes</h1>
     <div class=nav>
       <form action="." method="POST">
@@ -10,4 +10,23 @@
           <input type="submit" name="my-form" value="Add">
       </form>
     </div>
+</div>
+
+<div class=main>
+    {% for tag, knodes in tags_with_knodes %}
+        <p>
+            <div class=tag>
+                    <h2>{{ tag }}</h2>
+                    <div class=knode>
+                        {% for name, text in knodes %}
+                            {{ name }}: {{ text }}
+                            <br>
+                        {% endfor %}
+                    </div>
+            </div>
+        </p>
+    {% else %}
+        <em>Unbelievable. No tags yet.</em>
+    {% endfor %}
+
 </div>

@@ -18,20 +18,21 @@ Database Structure:
 		* tag file contains uids for each knode
 
 		ex: subtle_bodies.tag
-
-			<knode>
-				90928134
-			</knode>
-			<knode>
-				112638
-			</knode>
+            <tag name="">
+    			<knode>
+    				90928134
+    			</knode>
+    			<knode>
+    				112638
+    			</knode>
+            </tag>
 
 	- /knodes/
 		* contains knode files for each knode
 
 		ex: 90928134.knode
 
-			<knode>
+			<knode name="" knode_id="">
 				<created>
 					(time in unix standard)
 				</created>
