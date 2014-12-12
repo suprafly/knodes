@@ -1,11 +1,12 @@
 <!doctype html>
 <title>Knodes</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
 <div class=navbar>
-  <h1>Knodes</h1>
+  <img src="/static/knodes.png">
     <div class=nav>
       <form action="." method="POST">
-          <input type="text" placeholder="Name: Knowledge"  name="knode">
+          <input type="text" placeholder="Name:: Knowledge Node" name="knode">
           <input type="text" placeholder="Tags" name="tags">
           <input type="submit" name="my-form" value="Add">
       </form>
@@ -13,20 +14,26 @@
 </div>
 
 <div class=main>
-    {% for tag, knodes in tags_with_knodes %}
-        <p>
-            <div class=tag>
-                    <h2>{{ tag }}</h2>
-                    <div class=knode>
-                        {% for name, text in knodes %}
-                            {{ name }}: {{ text }}
-                            <br>
-                        {% endfor %}
-                    </div>
-            </div>
-        </p>
+    {% if tags_with_knodes %}
+        {% for tag, knodes in tags_with_knodes %}
+            <p>
+                <div class=tag_group>
+                        <h2>{{ tag }}</h2>
+                        <div class=knode_group>
+                            {% for name, text in knodes %}
+                                <div class=knode>
+                                    {% if name %}
+                                        <strong>{{ name }}:</strong>
+                                    {% endif %}
+                                        {{ text }}
+                                </div>
+                                <br>
+                            {% endfor %}
+                        </div>
+                </div>
+            </p>
+        {% endfor %}
     {% else %}
-        <em>Unbelievable. No tags yet.</em>
-    {% endfor %}
-
+        <em>Unbelievable. No knodes yet.</em>
+    {% endif %}
 </div>

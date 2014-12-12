@@ -10,6 +10,12 @@ Requirements:
 	- Simple interfce for browsing tags
 	- Simple interface for inputting knodes
 
+Tag Syntax:
+    - No tags with spaces are permited
+    - Space are treated ad seperators between tags
+    - Tags can be comma seperated or space seperated
+    - Any string coming before :: is considered to be the name of the knode
+
 Database Structure:
 	- flat file db, using xml
 
@@ -34,24 +40,17 @@ Database Structure:
 
 			<knode name="" knode_id="">
 				<created>
-					(time in unix standard)
 				</created>
-
+                
 				<last_updated>
 				</last_updated>
 
-				<name>
-					Etheric Body
-				</name>
-
 				<text>
-					The energetic body
 				</text>
 
 				<tag>
-					subtle_bodies
 				</tag>
+
 				<tag>
-					clairvision
 				</tag>
 			</knode>
