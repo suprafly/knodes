@@ -4,7 +4,8 @@
 
 <div class=navbar>
     <div class=nav>
-      <img src="/static/images/knodes.png" class=pull-left>
+      <img src="/static/images/knodes.png">
+
       <form action="." method="POST">
           <input type="text" placeholder="Name:: Knowledge Node" name="knode">
           <input type="text" placeholder="Tags" name="tags">
@@ -15,8 +16,8 @@
 
 <div class=container>
     {% if tags_with_knodes %}
-        {% for tag, knodes in tags_with_knodes %}
-            <p>
+        <div class=columns>
+            {% for tag, knodes in tags_with_knodes %}
                 <div class=tag_group>
                         <h2>{{ tag }}</h2>
                         <div class=knode_group>
@@ -30,9 +31,9 @@
                                 </div>
                             {% endfor %}
                         </div>
-                </div>
-            </p>
-        {% endfor %}
+                    </div>
+            {% endfor %}
+        </div>
     {% else %}
         <em>Unbelievable. No knodes yet.</em>
     {% endif %}
