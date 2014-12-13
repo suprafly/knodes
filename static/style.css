@@ -130,6 +130,11 @@ h3 {
     *zoom: 1;       
 }
 
+.knode_field {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 .pull-left {
   float: left;
 }

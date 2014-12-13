@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h1>Edit Knode</h1>
+    <br>
+    <div class=knode>            
+        <div class=input_area>
+            <form action=".." method="POST">
+                <div class=knode_field>
+                    <strong>Title</strong>
+                    <br>
+                    <input type="text" value="{% if title %}{{ title }}{% endif %}" name="title">
+                </div>
+                <div class=knode_field>
+                    <strong>Knowledge Node</strong>
+                    <br>
+                    <input type="text" value="{{ text }}" name="text" class=knode_text>
+                </div>
+                <div class=knode_field>
+                    <strong>Tags</strong>
+                    <br>
+                    <input type="text" value="{{ tags }}" name="tags" class=knode_text>
+                </div>
+
+                <div class=knode_field>
+                    <input type="text" value="{{ knode_id }}" name="knode_id" hidden="true">
+                    <input type="submit" name="update" value="Update">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
