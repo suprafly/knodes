@@ -66,8 +66,9 @@ h3 {
 }
 
 .container {
-    margin-top: 25px;       
     width: 940px;    
+    margin-top: 25px;       
+    margin-bottom: 25px;       
     margin-right: auto;
     margin-left: auto;
     *zoom: 1;    
