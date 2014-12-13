@@ -1,10 +1,14 @@
+* {
+  margin: 0;
+}
+
 body { 
     font-family: sans-serif; 
     background: /*#eee*/ white;
 }
 
 a, h1, h2 { 
-	color: #377ba8;
+	color: #4e2f62;
 	text-align: none;
 }
 
@@ -23,21 +27,42 @@ h3 {
 }
 
 .navbar { 
-	background: white;
-	padding: 0.8em; 
-    list-style: none;
-    margin: 0;
-    height: 40px;
+    background: #281832;  
+    /*#4e2f62*/
 
-    padding-bottom: 25px;       
+    background-color: #281832;
+    background-image: -moz-linear-gradient(top, #4e2f62, #281832);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4e2f62), to(#281832));
+    background-image: -webkit-linear-gradient(top, #4e2f62, #281832);
+    background-image: -o-linear-gradient(top, #4e2f62, #281832);
+    background-image: linear-gradient(to bottom, #4e2f62, #281832);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
+
+    
+    width: 100%;
+
+    margin: 0;
+    padding-top: 10px;       
+    padding-bottom: 10px;     
+
+    border-bottom: 3px solid #281832;    
 }
 
 .nav {
-	text-align: center;
     width: 940px;    
     margin-right: auto;
     margin-left: auto;
-    *zoom: 1;        
+    *zoom: 1;    
+}
+
+.input_area {
+    text-align: left;
+    padding-top: 5px;
+}
+
+.knode_text {
+    width: 75%;
 }
 
 .container {
@@ -88,10 +113,11 @@ h3 {
     padding-top: 10px;
     font-size: 0.9em; 
 }
+
 .knode {
     padding: 10px;
     margin-bottom: 10px;
-    background: #eee;
+    background: #eae7eb;
     width: relative;
     border: 1px solid #d4d4d4;
     -webkit-border-radius: 4px;

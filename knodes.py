@@ -30,6 +30,7 @@ def index_post():
     fields = text.split('::')
     if fields.__len__() > 1:
         name = fields[0]
+        text = fields[1]
     else:
         name = ""
         text = text.lstrip()
