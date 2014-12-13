@@ -4,8 +4,19 @@ import uuid
 import os
 import datetime
 
-app = Flask(__name__)
 
+# Configuration
+DB_ROOT = "db/"
+TAGS_DIR = DB_ROOT + "tags/"
+NODES_DIR = DB_ROOT + "nodes/"
+TAGFILE = TAGS_DIR + "tagfile.txt"
+
+# Helper functions
+get_tag_xml_file = lambda filename: TAGS_DIR + filename + ".xml"
+get_node_xml_file = lambda filename: NODES_DIR + filename + ".xml"
+
+
+app = Flask(__name__)
 
 @app.route('/')
 def index():
@@ -34,9 +45,9 @@ def index_post():
     return render_template("layout.html", tags_with_knodes=tags_with_knodes)
 
 def get_all_tags():
-    if os.path.isfile('db/tags/tagfile.txt'):
-        tagfile = open('db/tags/tagfile.txt', 'r')
-        all_tags = tagfile.readlines()
+    if os.path.isfile(TAGFILE):
+        tagfile_f = open(TAGFILE, 'r')
+        all_tags = tagfile_f.readlines()
         cleaned_tags = []
         for tag in all_tags:
             cleaned_tag = tag.split('\n')[0]
@@ -50,12 +61,12 @@ def get_knodes_for_tags(all_tags):
         return None
     tags_with_knodes = []
     for tag in all_tags:
-        filename = 'db/tags/%s.xml' % tag
+        filename = get_tag_xml_file(tag)
         tag_xml = ET.parse(filename)
         tag_root = tag_xml.getroot()
         knodes = []
         for knode_id in tag_root.findall('knode_id'):
-            knode_file = 'db/nodes/%s.xml' % knode_id.text
+            knode_file = get_node_xml_file(knode_id.text)
             knode_xml = ET.parse(knode_file)
             knode_root = knode_xml.getroot()
             knode_name = knode_root.get('name')
@@ -95,7 +106,7 @@ def create_knode(name, text, tags):
         tag.text = tag_text
 
     tree = ET.ElementTree(knode_xml)
-    filename = "db/nodes/%s.xml" % u_id
+    filename = get_node_xml_file(u_id)
     tree.write(filename, pretty_print=True)
     return u_id
 
@@ -103,7 +114,7 @@ def create_knode(name, text, tags):
 def save_tags(tags, knode_id):
     for tag in tags:
         tag_text = tag
-        filename = "db/tags/%s.xml" % tag_text
+        filename = get_tag_xml_file(tag_text)
 
         new_tags = []
         if not os.path.isfile(filename):
@@ -121,10 +132,10 @@ def save_tags(tags, knode_id):
             tag_knode_id.text = knode_id
             tag_xml.write(filename, pretty_print=True)
 
-        tagfile = open('db/tags/tagfile.txt', 'a')
+        tagfile_f = open(TAGFILE, 'a')
         for new_tag in new_tags:
-            tagfile.write(new_tag + '\n')
-        tagfile.close()
+            tagfile_f.write(new_tag + '\n')
+        tagfile_f.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
