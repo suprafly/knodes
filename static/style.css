@@ -1,6 +1,6 @@
 body { 
     font-family: sans-serif; 
-    background: white;
+    background: /*#eee*/ white;
 }
 
 a, h1, h2 { 
@@ -8,7 +8,7 @@ a, h1, h2 {
 	text-align: none;
 }
 
-h1, h2 { f
+h1, h2 {
     font-family: 'Georgia', serif; 
     margin: 0; 
 }
@@ -17,11 +17,17 @@ h2 {
     font-size: 1.2em; 
 }
 
+h3 {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
 .navbar { 
-	background: #eee;
+	background: white;
 	padding: 0.8em; 
     list-style: none;
     margin: 0;
+    height: 40px;
 
 /*    width: 940px;
     overflow: visible;
@@ -32,16 +38,28 @@ h2 {
 
 .nav {
 	text-align: center;
+    width: 940px;    
+    margin-right: auto;
+    margin-left: auto;
+    *zoom: 1;        
 }
 
-.main {
-    padding: 25px; 
+.container {
+    width: 940px;    
+    margin-right: auto;
+    margin-left: auto;
+    *zoom: 1;    
+    list-style: none;    
+}
+
+.container > li {
+    display: block;
 }
 
 .tag_group {
     background: white;
     padding: 15px;
-    width: auto;    
+    width: 50%;    
     border: 1px solid #d4d4d4;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;    
@@ -58,7 +76,9 @@ h2 {
 }
 .knode {
     padding: 10px;
+    margin-bottom: 10px;
     background: #eee;
+    width: relative;
     border: 1px solid #d4d4d4;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;    
@@ -67,4 +87,12 @@ h2 {
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);    
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
     *zoom: 1;       
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
 }

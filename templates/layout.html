@@ -3,8 +3,8 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 
 <div class=navbar>
-  <img src="/static/knodes.png">
     <div class=nav>
+      <img src="/static/images/knodes.png" class=pull-left>
       <form action="." method="POST">
           <input type="text" placeholder="Name:: Knowledge Node" name="knode">
           <input type="text" placeholder="Tags" name="tags">
@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class=main>
+<div class=container>
     {% if tags_with_knodes %}
         {% for tag, knodes in tags_with_knodes %}
             <p>
@@ -22,12 +22,12 @@
                         <div class=knode_group>
                             {% for name, text in knodes %}
                                 <div class=knode>
+                                    <img src="/static/images/icons/edit-16.png" align=right>
                                     {% if name %}
-                                        <strong>{{ name }}:</strong>
+                                        <h3>{{ name }}</h3>
                                     {% endif %}
-                                        {{ text }}
+                                    {{ text }}
                                 </div>
-                                <br>
                             {% endfor %}
                         </div>
                 </div>
