@@ -16,6 +16,8 @@ TAGFILE = TAGS_DIR + "tagfile.txt"
 get_tag_xml_file = lambda filename: TAGS_DIR + filename + ".xml"
 get_node_xml_file = lambda filename: NODES_DIR + filename + ".xml"
 
+remove_commas = lambda string: string.replace(",", " ")
+
 
 app = Flask(__name__)
 
@@ -26,19 +28,31 @@ def index():
 
 @app.route('/', methods=['POST'])
 def index_post():
-    if 'update' in request.form:
+    if 'update_button' in request.form:
         knode_id = request.form['knode_id']
         title = request.form['title']
         text = request.form['text']
-        tag_text = (request.form['tags']).replace(",", "")
+        tag_text = remove_commas(request.form['tags'])
         tags = sanitize_tags(tag_text.split(" "))
 
         #! Don't let them enter 0 tags, or else the knode disappears!
-        if (tags.__len__() < 1):
+        #! Don't let them enter without a Knowledge Node!
+        if (tags.__len__() < 1) or (text.lstrip().__len__() < 1):
             knode = get_knode(knode_id)
             return render_template('edit.html', title=knode[0], text=knode[1], tags=knode[2], knode_id=knode_id)
+        else:
+            update_knode(knode_id, title, text, tags)
 
-        update_knode(knode_id, title, text, tags)
+    elif 'delete_button' in request.form:
+        #! Remove knodefile
+        knode_id = request.form['knode_id']
+        knode_file = get_node_xml_file(knode_id)
+        os.remove(knode_file)
+
+        #! Remove knode_id from tagfiles
+        tag_text = remove_commas(request.form['tags'])
+        tags = sanitize_tags(tag_text.split(" "))
+        remove_knode_id_from_tagfiles(knode_id, tags)
     else:
         text = request.form['knode']
         fields = text.split('::')
@@ -49,7 +63,7 @@ def index_post():
             title = ""
             text = text.lstrip()
 
-        tag_text = (request.form['tags']).replace(",", "")
+        tag_text = remove_commas(request.form['tags'])
         tags = sanitize_tags(tag_text.split(" "))
 
         knode_id = create_knode(title, text, tags)
@@ -65,6 +79,15 @@ def edit(knode_id=None):
     knode = get_knode(knode_id)
     return render_template('edit.html', title=knode[0], text=knode[1], tags=knode[2], knode_id=knode_id)
 
+def remove_knode_id_from_tagfiles(knode_id, tags):
+    for tag in tags:
+        tag_file = get_tag_xml_file(tag)
+        tag_xml = ET.parse(tag_file)
+        tag_root = tag_xml.getroot()
+        for tag_knode_id in tag_root.findall('knode_id'):
+            if tag_knode_id.text == knode_id:
+                tag_root.remove(tag_knode_id)                        
+        tag_xml.write(tag_file, pretty_print=True)    
 
 def update_knode(knode_id, new_title, new_text, new_tags):
     knode_file = get_node_xml_file(knode_id)
@@ -85,14 +108,8 @@ def update_knode(knode_id, new_title, new_text, new_tags):
             #! Check if tags have been removed
             if tag.text not in new_tags:
                 knode_root.remove(tag)
-                #! Remove from tag_file as well
-                tag_file = get_tag_xml_file(tag.text)
-                tag_xml = ET.parse(tag_file)
-                tag_root = tag_xml.getroot()
-                for tag_knode_id in tag_root.findall('knode_id'):
-                    if tag_knode_id.text == knode_id:
-                        tag_root.remove(tag_knode_id)                        
-                tag_xml.write(tag_file, pretty_print=True)
+                #! Remove knode_id from tagfile
+                remove_knode_id_from_tagfiles(knode_id, [tag.text])
 
         #! Check if new tags have been added
         for new_tag in new_tags:
