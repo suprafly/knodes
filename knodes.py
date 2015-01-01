@@ -12,12 +12,12 @@ TAGS_DIR = DB_ROOT + "tags/"
 NODES_DIR = DB_ROOT + "nodes/"
 TAGFILE = TAGS_DIR + "tagfile.txt"
 
+
 # Helper functions
 get_tag_xml_file = lambda filename: TAGS_DIR + filename + ".xml"
 get_node_xml_file = lambda filename: NODES_DIR + filename + ".xml"
-
 remove_commas = lambda string: string.replace(",", " ")
-
+remove_knodefile = lambda knode_file: os.remove(knode_file)
 
 app = Flask(__name__)
 
@@ -44,12 +44,8 @@ def index_post():
             update_knode(knode_id, title, text, tags)
 
     elif 'delete_button' in request.form:
-        #! Remove knodefile
         knode_id = request.form['knode_id']
-        knode_file = get_node_xml_file(knode_id)
-        os.remove(knode_file)
-
-        #! Remove knode_id from tagfiles
+        remove_knodefile(get_node_xml_file(knode_id))
         tag_text = remove_commas(request.form['tags'])
         tags = sanitize_tags(tag_text.split(" "))
         remove_knode_id_from_tagfiles(knode_id, tags)
@@ -65,14 +61,12 @@ def index_post():
 
         tag_text = remove_commas(request.form['tags'])
         tags = sanitize_tags(tag_text.split(" "))
-
         knode_id = create_knode(title, text, tags)
         save_tags(tags, knode_id)
 
     all_tags = get_all_tags()
     tags_with_knodes = get_knodes_for_tags(all_tags)
     return render_template("layout.html", tags_with_knodes=tags_with_knodes)
-
 
 @app.route('/edit/<knode_id>')
 def edit(knode_id=None):
@@ -108,7 +102,6 @@ def update_knode(knode_id, new_title, new_text, new_tags):
             #! Check if tags have been removed
             if tag.text not in new_tags:
                 knode_root.remove(tag)
-                #! Remove knode_id from tagfile
                 remove_knode_id_from_tagfiles(knode_id, [tag.text])
 
         #! Check if new tags have been added

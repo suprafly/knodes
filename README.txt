@@ -1,56 +1,32 @@
 
-**************
-*** Knodes ***
-**************
+Installation (Ubuntu/Debian)
 
-Requirements:
-	- Dead Simple.
-	- Timestamped Data and Tags
-	- Flat file db
-	- Simple interfce for browsing tags
-	- Simple interface for inputting knodes
 
-Tag Syntax:
-    - No tags with spaces are permited
-    - Space are treated ad seperators between tags
-    - Tags can be comma seperated or space seperated
-    - Any string coming before :: is considered to be the name of the knode
+Make sure pythong is installed:
 
-Database Structure:
-	- flat file db, using xml
+which python
 
-	- /tags/ dir:
-		* contains tag files for each tag
-		* tag file contains uids for each knode
 
-		ex: subtle_bodies.tag
-            <tag name="">
-    			<knode>
-    				90928134
-    			</knode>
-    			<knode>
-    				112638
-    			</knode>
-            </tag>
+And install if it is not:
 
-	- /knodes/
-		* contains knode files for each knode
+sudo apt-get isntall python
 
-		ex: 90928134.knode
 
-			<knode name="" knode_id="">
-				<created>
-				</created>
-                
-				<last_updated>
-				</last_updated>
+Install Git:
 
-				<text>
-				</text>
+sudo apt-get install git
 
-				<tag>
-				</tag>
 
-				<tag>
-				</tag>
-			</knode>
+Install pip:
+
+sudo apt-get install pip
+
+
+Install flask and lxml:
+
+pip install flask, lxml
+
+
+Install Knodes
+
+git clone
