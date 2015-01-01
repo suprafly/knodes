@@ -1,45 +1,38 @@
 
-Installation (Ubuntu/Debian)
-======
+# Installation (Ubuntu/Debian)
 
-Make sure python is installed:
-======
+
+## Make sure python is installed:
 
 which python
 
 
-And install if it is not:
-======
+## And install if it is not:
 
-sudo apt-get isntall python
+sudo apt-get install python
 
 
-Install Git:
-======
+## Install Git:
 
 sudo apt-get install git
 
 
-Install pip:
-======
+## Install pip:
 
 sudo apt-get install pip
 
 
-Install flask and lxml:
-======
+## Install flask and lxml:
 
 pip install flask, lxml
 
 
-Install Knodes
-======
+## Install Knodes
 
-git clone
+git clone https://github.com/suprafly/knodes
 
 
-Usage
-======
+# Usage
 
 You can enter an optional title by appending :: after it.
 
