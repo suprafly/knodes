@@ -1,39 +1,46 @@
 
 Installation (Ubuntu/Debian)
+======
 
-
-Make sure pythong is installed:
+Make sure python is installed:
+======
 
 which python
 
 
 And install if it is not:
+======
 
 sudo apt-get isntall python
 
 
 Install Git:
+======
 
 sudo apt-get install git
 
 
 Install pip:
+======
 
 sudo apt-get install pip
 
 
 Install flask and lxml:
+======
 
 pip install flask, lxml
 
 
 Install Knodes
+======
 
 git clone
 
 
 Usage
+======
 
 You can enter an optional title by appending :: after it.
 
-Tags are entered comma of space separated.
+Tags are entered comma or space separated.
