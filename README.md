@@ -31,6 +31,19 @@ pip install flask, lxml
 
 git clone https://github.com/suprafly/knodes
 
+# Running Knodes
+
+## Navigate to your knodes directory:
+
+cd knodes/
+
+## Then run with:
+
+python knodes.py
+
+## Now you can open the following url in your web browser:
+
+http://127.0.0.1:5000/
 
 # Usage
 
