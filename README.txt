@@ -30,3 +30,10 @@ pip install flask, lxml
 Install Knodes
 
 git clone
+
+
+Usage
+
+You can enter an optional title by appending :: after it.
+
+Tags are entered comma of space separated.

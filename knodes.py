@@ -34,7 +34,7 @@ def index_post():
 
     elif 'delete_button' in request.form:
         knode_id = request.form['knode_id']
-        DB.remove_knodefile(get_node_xml_file(knode_id))
+        DB.remove_knodefile(DB.get_node_xml_file(knode_id))
         tag_text = remove_commas(request.form['tags'])
         tags = DB.sanitize_tags(tag_text.split(" "))
         DB.remove_knode_id_from_tagfiles(knode_id, tags)
