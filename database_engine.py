@@ -11,8 +11,14 @@ get_node_xml_file = lambda filename: NODES_DIR + filename + ".xml"
 remove_knodefile = lambda knode_file: os.remove(knode_file)
 
 
+def create_dir_if_necessary(dir):
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
 def create_database_if_needed():
-    pass
+    create_dir_if_necessary(DB_ROOT)
+    create_dir_if_necessary(TAGS_DIR)
+    create_dir_if_necessary(NODES_DIR)
 
 def remove_knode_id_from_tagfiles(knode_id, tags):
     for tag in tags:
@@ -22,8 +28,7 @@ def remove_knode_id_from_tagfiles(knode_id, tags):
         for tag_knode_id in tag_root.findall('knode_id'):
             if tag_knode_id.text == knode_id:
                 tag_root.remove(tag_knode_id)                        
-        tag_xml.write(tag_file, pretty_print=True)    
-    
+        tag_xml.write(tag_file, pretty_print=True)        
 
 def write_tag_to_tagfile(tag):
     tagfile_f = open(TAGFILE, 'a')
