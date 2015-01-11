@@ -62,7 +62,11 @@ h3 {
 }
 
 .knode_text {
-    width: 75%;
+    width: 70%;
+}
+
+.tag_text {
+    width: 20%;
 }
 
 .container {
