@@ -28,12 +28,75 @@ def remove_knode_id_from_tagfiles(knode_id, tags):
         for tag_knode_id in tag_root.findall('knode_id'):
             if tag_knode_id.text == knode_id:
                 tag_root.remove(tag_knode_id)                        
-        tag_xml.write(tag_file, pretty_print=True)        
+        tag_xml.write(tag_file, pretty_print=True)
 
 def write_tag_to_tagfile(tag):
     tagfile_f = open(TAGFILE, 'a')
     tagfile_f.write(tag + '\n')
     tagfile_f.close()
+    
+def create_knode(title, text, tags):
+    knode_xml = ET.Element('knode')
+
+    if title:
+        knode_xml.set('title', title.lstrip())
+
+    u_id = str(uuid.uuid4())
+    knode_xml.set('knode_id', u_id)
+      
+    time_created =  datetime.datetime.now().strftime("%b %d, %Y %H:%M:%S")
+    knode_created = ET.SubElement(knode_xml, 'created')
+    knode_created.text = time_created
+    knode_last_updated = ET.SubElement(knode_xml, 'last_updated')
+    knode_last_updated.text = time_created
+
+    #! And other data sanitization
+    knode_text = ET.SubElement(knode_xml, 'text')
+    knode_text.text = text.lstrip()
+
+    for tag_text in tags:
+        tag = ET.SubElement(knode_xml, 'tag')
+        tag.text = tag_text
+
+    knode_question = ET.SubElement(knode_xml, 'question')
+    knode_question.text = ""
+
+    knode_answer = ET.SubElement(knode_xml, 'answer')
+    knode_answer.text = ""
+    
+    knode_comments = ET.SubElement(knode_xml, 'comments')
+    knode_comments.text = ""
+
+    tree = ET.ElementTree(knode_xml)
+    filename = get_node_xml_file(u_id)
+    tree.write(filename, pretty_print=True)
+    return u_id
+
+def save_tags(tags, knode_id):
+    for tag in tags:
+        tag_text = tag
+        filename = get_tag_xml_file(tag_text)
+
+        new_tags = []
+        if not os.path.isfile(filename):
+            tag_xml = ET.Element('tag')
+            tag_xml.set('title', tag_text)
+            tag_knode_id = ET.SubElement(tag_xml, 'knode_id')
+            tag_knode_id.text = knode_id
+            tree = ET.ElementTree(tag_xml)    
+            tree.write(filename, pretty_print=True)
+            new_tags.append(tag_text)
+        else:
+            tag_xml = ET.parse(filename)
+            root = tag_xml.getroot()
+            tag_knode_id = ET.SubElement(root, 'knode_id')
+            tag_knode_id.text = knode_id
+            tag_xml.write(filename, pretty_print=True)
+
+        tagfile_f = open(TAGFILE, 'a')
+        for new_tag in new_tags:
+            tagfile_f.write(new_tag + '\n')
+        tagfile_f.close()
 
 def get_knode(knode_id):
     knode_file = get_node_xml_file(knode_id)
@@ -47,7 +110,19 @@ def get_knode(knode_id):
         for tag in knode_root.findall('tag'):
             tags = tags + " " + tag.text
 
-        return [knode_title, knode_text, tags.lstrip()]
+        for question in knode_root.findall('question'):
+            knode_question = question.text
+            if knode_question == None:
+                knode_question = ""
+        for answer in knode_root.findall('answer'):
+            knode_answer = answer.text
+            if knode_answer == None:
+                knode_answer = ""
+        for comments in knode_root.findall('comments'):
+            knode_comments = comments.text
+            if knode_comments == None:
+                knode_comments = ""
+        return [knode_title, knode_text, tags.lstrip(), knode_question, knode_answer, knode_comments]
     else:
         return None
 
@@ -84,7 +159,7 @@ def get_knodes_for_tags(all_tags):
     return tags_with_knodes
 
 
-def update_knode(knode_id, new_title, new_text, new_tags):
+def update_knode(knode_id, new_title, new_text, new_tags, new_question, new_answer, new_comments):
     knode_file = get_node_xml_file(knode_id)
     if os.path.isfile(knode_file):
         knode_xml = ET.parse(knode_file)
@@ -125,7 +200,19 @@ def update_knode(knode_id, new_title, new_text, new_tags):
                     tag_knode_id.text = knode_id
                     tree = ET.ElementTree(tag_xml)    
                     tree.write(tag_file, pretty_print=True)
-                    write_tag_to_tagfile(tag.text)   
+                    write_tag_to_tagfile(tag.text) 
+
+        for knode_question in knode_root.findall('question'):
+            if knode_question != new_question:
+                knode_question.text = new_question
+
+        for knode_answer in knode_root.findall('answer'):
+            if knode_answer != new_answer:
+                knode_answer.text = new_answer
+
+        for knode_comments in knode_root.findall('comments'):
+            if knode_comments != new_comments:
+                knode_comments.text = new_comments
 
         knode_xml.write(knode_file, pretty_print=True)
 
@@ -135,58 +222,3 @@ def sanitize_tags(tags):
         if tag != "":
             new_tags.append(tag.lstrip())
     return new_tags
-
-def create_knode(title, text, tags):
-    knode_xml = ET.Element('knode')
-
-    if title:
-        knode_xml.set('title', title.lstrip())
-
-    u_id = str(uuid.uuid4())
-    knode_xml.set('knode_id', u_id)
-      
-    time_created =  datetime.datetime.now().strftime("%b %d, %Y %H:%M:%S")
-    knode_created = ET.SubElement(knode_xml, 'created')
-    knode_created.text = time_created
-    knode_last_updated = ET.SubElement(knode_xml, 'last_updated')
-    knode_last_updated.text = time_created
-
-    #! And other data sanitization
-    knode_text = ET.SubElement(knode_xml, 'text')
-    knode_text.text = text.lstrip()
-
-    for tag_text in tags:
-        tag = ET.SubElement(knode_xml, 'tag')
-        tag.text = tag_text
-
-    tree = ET.ElementTree(knode_xml)
-    filename = get_node_xml_file(u_id)
-    tree.write(filename, pretty_print=True)
-    return u_id
-
-
-def save_tags(tags, knode_id):
-    for tag in tags:
-        tag_text = tag
-        filename = get_tag_xml_file(tag_text)
-
-        new_tags = []
-        if not os.path.isfile(filename):
-            tag_xml = ET.Element('tag')
-            tag_xml.set('title', tag_text)
-            tag_knode_id = ET.SubElement(tag_xml, 'knode_id')
-            tag_knode_id.text = knode_id
-            tree = ET.ElementTree(tag_xml)    
-            tree.write(filename, pretty_print=True)
-            new_tags.append(tag_text)
-        else:
-            tag_xml = ET.parse(filename)
-            root = tag_xml.getroot()
-            tag_knode_id = ET.SubElement(root, 'knode_id')
-            tag_knode_id.text = knode_id
-            tag_xml.write(filename, pretty_print=True)
-
-        tagfile_f = open(TAGFILE, 'a')
-        for new_tag in new_tags:
-            tagfile_f.write(new_tag + '\n')
-        tagfile_f.close()

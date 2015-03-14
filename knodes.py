@@ -27,9 +27,10 @@ def index_post():
         tags = create_tag_list(remove_commas(request.form['tags']))
         if has_one_or_more_tags(tags) or has_knowledge_node(text):
             knode = DB.get_knode(knode_id)
-            return render_template('edit.html', title=knode[0], text=knode[1], tags=knode[2], knode_id=knode_id)
+            return render_template('edit.html', title=knode[0], text=knode[1], tags=knode[2], question=knode[3], answer=knode[4], comments=knode[5], knode_id=knode_id)
         else:
-            DB.update_knode(knode_id, title, text, tags)
+            DB.update_knode(knode_id, title, text, tags, request.form['question'], request.form['answer'], request.form['comments'])
+
     elif 'delete_button' in request.form:
         knode_id = request.form['knode_id']
         DB.remove_knodefile(DB.get_node_xml_file(knode_id))
@@ -54,7 +55,8 @@ def index_post():
 @app.route('/edit/<knode_id>')
 def edit(knode_id=None):
     knode = DB.get_knode(knode_id)
-    return render_template('edit.html', title=knode[0], text=knode[1], tags=knode[2], knode_id=knode_id)
+    print knode
+    return render_template('edit.html', title=knode[0], text=knode[1], tags=knode[2], question=knode[3], answer=knode[4], comments=knode[5], knode_id=knode_id)
 
 if __name__ == '__main__':
     DB.create_database_if_needed()
