@@ -4,9 +4,39 @@
 
 <div class=navbar>
     <div class=nav>
-        <a href="/">
-            <img src="/static/images/knodes_white.png">
-        </a>
+
+        <div class="top-bar">
+            <a href="/">
+                <img src="/static/images/knodes_white.png">
+            </a>
+
+{#             <button class="my_popup_open quiz-button pull-right"><b>Quiz Me!</b></button>
+            <div id="my_popup" style="display:none;" class=button-body>
+                <div class="quiz-popup">
+                    <h3>Choose Your Topics</h3>
+                    <div class="quiz-list-container">
+                        {% if tags_with_knodes %}
+                            {% for tag, knodes in tags_with_knodes %}
+                                <input type="checkbox" /> {{ tag }} <br />                           
+                            {% endfor %}
+                        {% endif %}                    
+                    </div>                    
+                    <button class="go-button pull-center"><b>Go</b></button>
+                </div>
+            </div> #}
+
+            <!-- Include jQuery -->
+            <script src="{{ url_for('static', filename='js/jquery-1.8.2.min.js') }}"></script>
+            <!-- Include jQuery Popup Overlay -->
+            <script src="{{ url_for('static', filename='js/jquery.popupoverlay.js') }}"></script>
+            <script>
+            $(document).ready(function() {
+              // Initialize the plugin
+              $('#my_popup').popup();
+            });
+            </script>
+        </div>
+
         <div class=input_area>
             <form action="." method="POST">
                 <input type="text" placeholder="Title:: Knowledge Node" name="knode" class=knode_text>

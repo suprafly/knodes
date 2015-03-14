@@ -56,6 +56,10 @@ h3 {
     *zoom: 1;    
 }
 
+.top-bar {
+    padding-right: 20px;
+}
+
 .input_area {
     text-align: left;
     padding-top: 5px;
@@ -145,4 +149,73 @@ h3 {
 
 .pull-right {
   float: right;
+}
+
+.quiz-button {
+    color: white;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;    
+    background: #1290D4;
+    width: relative;
+    border: 0px; /*solid #4e2f62;*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;    
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);    
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    *zoom: 1;       
+    display: inline-block;
+    text-decoration: none;
+}
+
+.quiz-button:hover {
+    background: #1595F1;
+}
+
+.go-button {
+    color: white;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;    
+    background: #009150;
+    width: 100%;
+    border: 0px; /*solid #4e2f62;*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;    
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);    
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    *zoom: 1;       
+    display: inline-block;
+    text-decoration: none;
+}
+
+.go-button:hover {
+    background: #00AB66;
+}
+
+.quiz-popup {
+    background: white;
+    padding: 25px;
+    margin-bottom: 10px;
+    border: 1px solid #d4d4d4;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;    
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);    
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    *zoom: 1;     
+}
+
+.quiz-list-container {
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    background: white;
+    width: 300px; 
+    height: 50%;
+    overflow-y: scroll; 
 }
