@@ -8,7 +8,7 @@
                     <div class=tag_group>
                         <h2>{{ tag }}</h2>
                         <div class=knode_group>
-                            {% for knode_id, name, text in knodes %}
+                            {% for knode_id, name, text, question, answer, comments in knodes %}
                                 <div class=knode>
 
                                     {# <a href="{{ url_for('app.edit', knode_id=knode_id)}}"> #}

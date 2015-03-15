@@ -154,10 +154,23 @@ def get_knodes_for_tags(all_tags):
             knode_title = knode_root.get('title')
             for text in knode_root.findall('text'):
                 knode_text = text.text
-                knodes.append([knode_id.text, knode_title, knode_text])
+            for question in knode_root.findall('question'):
+                knode_question = question.text
+            for answer in knode_root.findall('answer'):
+                knode_answer = answer.text
+            for comments in knode_root.findall('comments'):
+                knode_comments = comments.text
+            knodes.append([knode_id.text, knode_title, knode_text, knode_question, knode_answer, knode_comments])
         tags_with_knodes.append([tag, knodes])
     return tags_with_knodes
 
+def get_knode_list(all_tags):
+    tags_with_knodes = get_knodes_for_tags(all_tags)
+    knode_list = []
+    for tag, knodes in tags_with_knodes:
+        for knode in knodes:
+            knode_list.append(knode)
+    return knode_list
 
 def update_knode(knode_id, new_title, new_text, new_tags, new_question, new_answer, new_comments):
     knode_file = get_node_xml_file(knode_id)

@@ -191,10 +191,80 @@ h3 {
     *zoom: 1;       
     display: inline-block;
     text-decoration: none;
+    text-align: center;
 }
 
 .go-button:hover {
     background: #00AB66;
+}
+
+.next-button {
+    color: white;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;    
+    background: #00AB66;
+    width: relative;
+    border: 0px; /*solid #4e2f62;*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;    
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);    
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    *zoom: 1;       
+    display: inline-block;
+    text-decoration: none;
+}
+
+.next-button:hover {
+    background: #009150;
+}
+
+.answer-button {
+    color: white;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;    
+    background: #f38630;
+    width: relative;
+    border: 0px; /*solid #4e2f62;*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;    
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);    
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    *zoom: 1;       
+    display: inline-block;
+    text-decoration: none;
+}
+
+.answer-button:hover {
+    background: #f26900;
+}
+
+.red-button {
+    color: white;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;    
+    background: #f9152f;
+    width: relative;
+    border: 0px; /*solid #4e2f62;*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;    
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);    
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    *zoom: 1;       
+    display: inline-block;
+    text-decoration: none;
+}
+
+.red-button:hover {
+    background: red;
 }
 
 .quiz-popup {
@@ -218,4 +288,42 @@ h3 {
     width: 300px; 
     height: 50%;
     overflow-y: scroll; 
+}
+
+.quiz-header {
+    padding-bottom: 25px;
+    text-align: center;
+}
+
+.quiz-section {
+    padding-top: 35px;
+    padding-bottom: 35px;
+    margin-bottom: 10px;
+    background: white;
+    width: 98%;
+    border: 1px solid #d4d4d4;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;    
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);    
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    *zoom: 1;       
+}
+
+.question-section {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 35px;
+}
+
+.button-group {
+    text-align: right;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.quiz-text-section {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }

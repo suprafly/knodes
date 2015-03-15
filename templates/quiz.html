@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="quiz-section">
+        <h1 class="quiz-header">Knowledge Quiz</h1>
+
+        <div class="question-section">
+            <div class="quiz-text-section">
+                <h2>Question {{ question_number }} of {{ total_questions }}</h2>
+                <p>
+                    {{ next_question_knode[3] }}
+                </p>
+            </div>
+            <div id='content' style="display:none;">
+                <div class="quiz-text-section">
+                    <h2>Answer</h2>
+                    <p>
+                        {{ next_question_knode[4] }}
+                    </p>
+                </div>
+                <div class="quiz-text-section">
+                    <h2>Comments</h2>  
+                    <p>
+                        {{ next_question_knode[5] }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="button-group pull-right">
+
+                <form action="/quiz" method="POST">
+                    <div id='show_answer' class="answer-button" style="font-size: 88%;"><b>Answer</b></div>             
+                    <script>
+                        $(document).ready(function() {          
+                            $('#show_answer').each(function(){
+                                $(this).click(function(){
+                                    $('#content').toggle();                                   
+                                });
+                            });
+                        });
+                    </script>
+
+                    {% for knode in quiz_knodes %}
+                        <input type="hidden" value="{{ knode[0] }}" name="knode_id" />
+                    {% endfor %}
+                    <input type="hidden" value="END" name="knode_id" />
+                    {% for tag in quiz_tags %}
+                        <input type="hidden" value="{{ tag }}" name="quiz_tag" />
+                    {% endfor %}
+                    {% if question_number == total_questions %}
+                        <button class="red-button" id="next_question" type="submit"><b>Return Home</b></button>
+                    {% else %}
+                        <button class="next-button" id="next_question" type="submit"><b>Next Question</b></button>
+                    {% endif %}
+                </form>
+
+            </div>                       
+
+        </div>   
+    </div>
+{% endblock %}
