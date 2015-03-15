@@ -10,33 +10,36 @@
                 <img src="/static/images/knodes_white.png">
             </a>
 
-            <button class="my_popup_open quiz-button pull-right"><b>Quiz Me!</b></button>
-            <div id="my_popup" style="display:none;" class=button-body>
-                <form action="/quiz" method="POST">
-                    <div class="quiz-popup">
-                        <h3>Choose Your Topics</h3>
-                        <div class="quiz-list-container">
-                            {% if tags_with_knodes %}
-                                {% for tag, knodes in tags_with_knodes %}
-                                    <input type="checkbox" name="quiz_tag" value="{{ tag }}"> {{ tag }} <br>
-                                {% endfor %}
-                            {% endif %}                    
-                        </div>                    
-                        <button id="quiz-go" type="submit" class="go-button"><b>Go</b></button>
-                    </div>
-                </form>
-            </div>
+            {% if tags_with_knodes %}
+                <button class="my_popup_open quiz-button pull-right"><b>Quiz Me!</b></button>
+                <div id="my_popup" style="display:none;" class=button-body>
+                    <form action="/quiz" method="POST">
+                        <div class="quiz-popup">
+                            <h3>Choose Your Topics</h3>
+                            <div class="quiz-list-container">
+                                {% if tags_with_knodes %}
+                                    {% for tag, knodes in tags_with_knodes %}
+                                        <input type="checkbox" name="quiz_tag" value="{{ tag }}"> {{ tag }} <br>
+                                    {% endfor %}
+                                {% endif %}                    
+                            </div>                    
+                            <button id="quiz-go" type="submit" class="go-button"><b>Go</b></button>
+                        </div>
+                    </form>
+                </div>
 
-            <!-- Include jQuery -->
-            <script src="{{ url_for('static', filename='js/jquery-1.8.2.min.js') }}"></script>
-            <!-- Include jQuery Popup Overlay -->
-            <script src="{{ url_for('static', filename='js/jquery.popupoverlay.js') }}"></script>
-            <script>
-            $(document).ready(function() {
-              // Initialize the plugin
-              $('#my_popup').popup();
-            });
-            </script>
+                <!-- Include jQuery -->
+                <script src="{{ url_for('static', filename='js/jquery-1.8.2.min.js') }}"></script>
+                <!-- Include jQuery Popup Overlay -->
+                <script src="{{ url_for('static', filename='js/jquery.popupoverlay.js') }}"></script>
+                <script>
+                $(document).ready(function() {
+                  // Initialize the plugin
+                  $('#my_popup').popup();
+                });
+                </script>
+            {% endif %}
+            
         </div>
 
         <div class=input_area>
